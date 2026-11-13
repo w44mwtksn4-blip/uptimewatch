@@ -43,7 +43,7 @@ cp .env.example .env                   # Windows: copy .env.example .env
    DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...
    ```
 
-   `.env` is read from the same folder as `config.yaml` and is ignored by Git. Treat the URL like a password: anyone who has it can post to your channel.
+   `.env` is read from the same folder as `config.yaml` and is ignored by Git. A real environment variable named `DISCORD_WEBHOOK_URL` takes precedence over the file. Treat the URL like a password: anyone who has it can post to your channel.
 3. Edit `config.yaml`:
 
 ```yaml
@@ -88,6 +88,7 @@ python -m uptimewatch --help
 | `--state-file` | State file (default `state.json` next to the config file). |
 | `--log-file` | Log file (default `logs/monitor.log` next to the config file). |
 | `--log-level` | `DEBUG`, `INFO` (default), `WARNING` or `ERROR`. |
+| `--version` | Print the version and exit. |
 
 The `.env`, `state.json` and `logs/` paths are all resolved relative to the **config file's folder**, so the program behaves the same whatever its working directory is.
 

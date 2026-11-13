@@ -34,6 +34,16 @@ def test_mentions_are_disabled():
     assert payload["allowed_mentions"] == {"parse": []}
 
 
+def test_very_long_check_name_is_clipped_to_discord_title_limit():
+    long_check = CheckConfig(
+        name="x" * 400, type="http", failure_threshold=3, url="https://example.com"
+    )
+    transition = Transition(long_check.name, DOWN, error="HTTP 503", failures=3)
+    payload = build_payload(transition, long_check)
+    title = payload["embeds"][0]["title"]
+    assert len(title) == 256 and title.endswith("...")
+
+
 def fake_response(status, retry_after=None):
     return SimpleNamespace(
         status_code=status,

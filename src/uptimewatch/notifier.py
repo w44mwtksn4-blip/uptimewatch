@@ -19,6 +19,7 @@ RED = 0xE74C3C
 GREEN = 0x2ECC71
 MAX_RETRY_WAIT = 10.0  # seconds; never block the monitor for longer on a rate limit
 FIELD_LIMIT = 1024  # Discord's maximum length for an embed field value
+TITLE_LIMIT = 256  # Discord's maximum length for an embed title
 
 
 def is_valid_webhook_url(url: str) -> bool:
@@ -42,10 +43,12 @@ def build_payload(transition: Transition, check: CheckConfig) -> dict[str, Any]:
         downtime = format_duration(transition.downtime_seconds or 0)
         fields.append({"name": "Downtime", "value": downtime, "inline": True})
 
+    if is_down:
+        title = f"\U0001f534 {check.name} is DOWN"
+    else:
+        title = f"\U0001f7e2 {check.name} is back UP"
     embed = {
-        "title": f"\U0001f534 {check.name} is DOWN"
-        if is_down
-        else f"\U0001f7e2 {check.name} is back UP",
+        "title": _clip(title, TITLE_LIMIT),
         "color": RED if is_down else GREEN,
         "fields": fields,
         "footer": {"text": "uptimewatch"},
@@ -105,6 +108,6 @@ def _retry_after(response: requests.Response) -> float:
         return 1.0
 
 
-def _clip(text: str) -> str:
-    """Trim text to Discord's field limit."""
-    return text if len(text) <= FIELD_LIMIT else text[: FIELD_LIMIT - 3] + "..."
+def _clip(text: str, limit: int = FIELD_LIMIT) -> str:
+    """Trim text to one of Discord's embed length limits."""
+    return text if len(text) <= limit else text[: limit - 3] + "..."
