@@ -1,0 +1,25 @@
+# Copy this file to config.yaml and edit it.
+
+interval: 60            # seconds between check rounds (continuous mode)
+timeout: 10             # seconds before a single check counts as failed
+failure_threshold: 3    # consecutive failures before a check is declared DOWN
+
+checks:
+  # HTTP/HTTPS check. Without expected_status, any status below 400 is healthy.
+  - name: Example website
+    type: http
+    url: https://example.com
+
+  # HTTP check that must return an exact status code.
+  - name: Example API health
+    type: http
+    url: https://example.com/health
+    expected_status: 200
+
+  # TCP check: succeeds if a connection can be opened.
+  # failure_threshold here overrides the global value for this check only.
+  - name: Example SSH
+    type: tcp
+    host: example.com
+    port: 22
+    failure_threshold: 2
