@@ -1,5 +1,6 @@
 # uptimewatch
 
+[![tests](https://github.com/w44mwtksn4-blip/uptimewatch/actions/workflows/tests.yml/badge.svg)](https://github.com/w44mwtksn4-blip/uptimewatch/actions/workflows/tests.yml)
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)
 ![License: MIT](https://img.shields.io/badge/licence-MIT-green)
 
