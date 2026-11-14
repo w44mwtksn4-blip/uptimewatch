@@ -147,11 +147,9 @@ Discord renders each alert as an embed with a coloured side bar. This is an **il
 ┃ uptimewatch • today at 14:06
 ```
 
-<!-- SCREENSHOT PLACEHOLDER
-     Add a real screenshot of a Discord notification at docs/notification.png,
-     then replace the line below with:  ![A real notification in Discord](docs/notification.png)
--->
-> 📸 *A real Discord screenshot will be added here (`docs/notification.png`).*
+A real notification in Discord (a service going down, then recovering):
+
+![A real uptimewatch notification in Discord](docs/notification.png)
 
 ## How it works (architecture)
 
